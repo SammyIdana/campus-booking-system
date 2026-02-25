@@ -16,45 +16,51 @@ import java.util.List;
 @RequestMapping("/api/bookings")
 @CrossOrigin(origins = "*")
 public class BookingController {
-    
+
     private final BookingService bookingService;
-    
+
     public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
-    
+
     @GetMapping
     public ResponseEntity<List<BookingResponse>> getAllBookings() {
         List<BookingResponse> bookings = bookingService.getAllBookings();
         return ResponseEntity.ok(bookings);
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<BookingResponse> getBookingById(@PathVariable Long id) {
         BookingResponse booking = bookingService.getBookingById(id);
         return ResponseEntity.ok(booking);
     }
-    
+
     @PostMapping
     public ResponseEntity<BookingResponse> createBooking(@Valid @RequestBody BookingRequest request) {
         BookingResponse created = bookingService.createBooking(request);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
-    
+
     @PutMapping("/{id}")
     public ResponseEntity<BookingResponse> updateBooking(
-            @PathVariable Long id, 
+            @PathVariable Long id,
             @Valid @RequestBody BookingRequest request) {
         BookingResponse updated = bookingService.updateBooking(id, request);
         return ResponseEntity.ok(updated);
     }
-    
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
+
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<Void> cancelBooking(@PathVariable Long id) {
         bookingService.cancelBooking(id);
         return ResponseEntity.noContent().build();
     }
-    
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
+        bookingService.deleteBooking(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/check-availability")
     public ResponseEntity<Boolean> checkAvailability(
             @RequestParam Long facilityId,
@@ -63,16 +69,16 @@ public class BookingController {
             @RequestParam String endTime) {
         LocalDate bookingDate = LocalDate.parse(date);
         boolean isAvailable = bookingService.isFacilityAvailable(
-            facilityId, bookingDate, startTime, endTime);
+                facilityId, bookingDate, startTime, endTime);
         return ResponseEntity.ok(isAvailable);
     }
-    
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<BookingResponse>> getBookingsByUser(@PathVariable Long userId) {
         List<BookingResponse> bookings = bookingService.getBookingsByUser(userId);
         return ResponseEntity.ok(bookings);
     }
-    
+
     @GetMapping("/facility/{facilityId}")
     public ResponseEntity<List<BookingResponse>> getBookingsByFacility(@PathVariable Long facilityId) {
         List<BookingResponse> bookings = bookingService.getBookingsByFacility(facilityId);

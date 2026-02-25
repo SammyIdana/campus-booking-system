@@ -4,258 +4,756 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Campus Booking System</title>
+  <title>Campus Facility Booking</title>
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+  <!-- Modern Typography -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
   <style>
-    * {
-      transition: all 0.3s ease;
+    :root {
+      --navy-dark: #0B1C2D;
+      --navy-light: #1A3A52;
+      --royal-blue: #2563EB;
+      --royal-blue-dark: #1E40AF;
+      --emerald: #10B981;
+      --emerald-light: #6EE7B7;
+      --cyan: #06B6D4;
+      --cyan-light: #67E8F9;
+      --gold: #FBBF24;
+      --gold-dark: #F59E0B;
+      --danger: #EF4444;
+      --gray-light: #F8FAFC;
+      --gray-medium: #CBD5E1;
+      --gray-dark: #334155;
+      --white: #FFFFFF;
+      --navbar-height: 72px;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--gray-light) 0%, #EAFBFF 100%);
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       min-height: 100vh;
-      color: #1e293b;
+      color: var(--navy-dark);
+      overflow-x: hidden;
     }
 
-    /* Navbar */
-    .navbar {
-      background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 50%, #312e81 100%) !important;
-      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
-      padding: 1.5rem 0 !important;
-      border: none;
+    /* ==================== HERO SECTION ==================== */
+    .hero-section {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, #1a2a3e 50%, var(--navy-light) 100%);
     }
 
-    .navbar-brand {
-      font-size: 1.8rem;
-      color: white !important;
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(6,182,212,0.05)" stroke-width="1"/></pattern></defs><rect width="1200" height="800" fill="url(%23grid)"/></svg>');
+      opacity: 0.5;
+    }
+
+    .hero-gradient-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--white);
+      max-width: 900px;
+      padding: 40px;
+    }
+
+    .hero-content h1 {
+      font-size: 4.5rem;
       font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s ease 0.2s both;
+      background: linear-gradient(135deg, var(--cyan-light) 0%, var(--emerald-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-content p {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 40px;
+      animation: fadeInUp 0.8s ease 0.4s both;
       letter-spacing: 0.5px;
     }
 
-    .navbar .small-muted {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 0.9rem;
-    }
-
-    .navbar .subtitle {
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    /* Main Container */
-    .container-centered {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 50px 20px;
-    }
-
-    /* Tabs Header */
-    .tabs-header {
-      margin-bottom: 50px;
-      text-align: center;
-    }
-
-    .nav-tabs {
-      border: none;
+    .hero-buttons {
       display: flex;
+      gap: 20px;
       justify-content: center;
-      gap: 12px;
       flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.6s both;
     }
 
-    .nav-tabs .nav-item {
-      flex: 0 1 auto;
-    }
-
-    .nav-tabs .nav-link {
-      color: #64748b;
-      border: none;
-      background: rgba(15, 23, 42, 0.05);
-      font-weight: 700;
-      padding: 14px 28px;
-      border-radius: 12px;
-      transition: all 0.3s ease;
+    .btn-hero {
+      padding: 16px 42px;
       font-size: 1rem;
+      font-weight: 600;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     }
 
-    .nav-tabs .nav-link:hover {
-      background: rgba(15, 23, 42, 0.1);
-      color: #1e3a8a;
-      transform: translateY(-2px);
+    .btn-hero-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: var(--navy-dark);
     }
 
-    .nav-tabs .nav-link.active {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-      color: white;
-      box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3);
+    .btn-hero-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 30px 70px rgba(251, 191, 36, 0.4);
     }
 
-    /* Content Wrapper */
-    .content-wrapper {
+    .btn-hero-secondary {
+      background: transparent;
+      color: var(--cyan-light);
+      border: 2px solid var(--cyan-light);
+    }
+
+    .btn-hero-secondary:hover {
+      background: rgba(6, 182, 212, 0.1);
+      transform: translateY(-3px);
+      border-color: var(--emerald-light);
+      color: var(--emerald-light);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      opacity: 0.7;
+    }
+
+    /* ==================== NAVBAR ==================== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      background-color: rgba(11, 28, 45, 0.05);
+      border-bottom: 1px solid transparent;
+      height: var(--navbar-height);
+      display: flex;
+      align-items: center;
+      transition: all 0.4s ease;
+    }
+
+    nav.scrolled {
+      background-color: rgba(11, 28, 45, 0.95);
+      border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .navbar-brand {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--emerald) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
       position: relative;
+      transition: color 0.3s ease;
+      cursor: pointer;
     }
 
-    .tab-section {
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan) 0%, var(--emerald) 100%);
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active-nav::after {
+      width: 100%;
+    }
+
+    .nav-links a.active-nav {
+      color: var(--cyan);
+    }
+
+    /* Mobile hamburger */
+    .hamburger {
       display: none;
-      animation: fadeIn 0.4s ease;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
     }
 
-    .tab-section.active {
+    .hamburger span {
       display: block;
+      width: 24px;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
     }
 
-    @keyframes fadeIn {
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--navbar-height);
+      left: 0;
+      width: 100%;
+      background: rgba(11, 28, 45, 0.97);
+      z-index: 999;
+      padding: 20px;
+      border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--cyan);
+    }
+
+    /* ==================== ANIMATIONS ==================== */
+    @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(30px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    /* Cards */
-    .app-card {
-      border: none;
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(10px);
+      }
+    }
+
+    @keyframes countUp {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes successPop {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+
+      70% {
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    @keyframes successFadeOut {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+    }
+
+    @keyframes checkDraw {
+      0% {
+        stroke-dashoffset: 100;
+      }
+
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes circlePulse {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      60% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* ==================== MAIN CONTAINER ==================== */
+    .container-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* Anchor scroll offset hack for fixed navbar */
+    .scroll-target {
+      scroll-margin-top: calc(var(--navbar-height) + 24px);
+    }
+
+    .section-title {
+      font-size: 3rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 60px;
+      color: var(--navy-dark);
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cyan) 0%, var(--emerald) 100%);
+      border-radius: 2px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--gray-dark);
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    /* ==================== TABS ==================== */
+    .tabs-container {
+      margin: 0 0 60px;
+    }
+
+    .tabs-header {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: var(--navbar-height);
+      background: rgba(248, 250, 252, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 16px 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+    }
+
+    .tab-btn {
+      padding: 12px 28px;
+      background: rgba(11, 28, 45, 0.05);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--navy-dark);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      transform: translateY(-2px);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--royal-blue) 0%, var(--cyan) 100%);
+      color: var(--white);
+      border-color: var(--cyan);
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.25);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* ==================== GLASS CARDS ==================== */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 20px;
-      box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
-      background: white;
+      padding: 48px 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+      position: relative;
       overflow: hidden;
-      transition: all 0.4s ease;
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.07) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .glass-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-header-section {
+      margin-bottom: 32px;
+    }
+
+    .card-header-section h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy-dark);
+      margin-bottom: 8px;
+    }
+
+    .card-header-section p {
+      color: var(--gray-dark);
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    /* ==================== FACILITY CARDS (Rich) ==================== */
+    .facilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
       margin-bottom: 40px;
     }
 
-    .app-card:hover {
-      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.12);
-      transform: translateY(-8px);
+    .facility-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
+      cursor: pointer;
+      position: relative;
+      border: 1px solid rgba(0, 0, 0, 0.04);
     }
 
-    .card-header-custom {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-      padding: 40px 40px 30px;
+    .facility-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 24px 60px rgba(6, 182, 212, 0.22);
+    }
+
+    .facility-image {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .facility-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .facility-card:hover .facility-image img {
+      transform: scale(1.08);
+    }
+
+    .facility-icon-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+    }
+
+    .facility-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(16, 185, 129, 0.9);
       color: white;
-      text-align: center;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(4px);
     }
 
-    .card-header-custom h5 {
-      color: white;
-      margin: 0;
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -1px;
+    .facility-badge.unavailable {
+      background: rgba(239, 68, 68, 0.85);
     }
 
-    .card-header-custom .subtitle {
-      color: rgba(255, 255, 255, 0.85);
-      margin: 12px 0 0;
-      font-size: 1rem;
+    .facility-info {
+      padding: 22px 24px 24px;
+    }
+
+    .facility-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy-dark);
+      margin-bottom: 8px;
+    }
+
+    .facility-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .facility-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--gray-dark);
       font-weight: 500;
     }
 
-    .card-body {
-      padding: 40px;
-    }
-
-    /* Buttons */
-    .btn {
-      border-radius: 12px;
-      font-weight: 700;
-      padding: 12px 28px;
-      border: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-size: 0.95rem;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-    }
-
-    .btn-lg {
-      padding: 14px 40px;
+    .facility-meta-item span.icon {
       font-size: 1rem;
     }
 
-    .btn-success {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: white;
+    .facility-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
     }
 
-    .btn-success:hover {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    .facility-tag {
+      background: rgba(6, 182, 212, 0.08);
+      color: var(--cyan);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-      color: white;
+    .btn-facility {
+      width: 100%;
+      padding: 11px;
+      background: linear-gradient(135deg, var(--royal-blue) 0%, var(--cyan) 100%);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
     }
 
-    .btn-primary:hover {
-      background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%);
+    .btn-facility:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
     }
 
-    .btn-outline-primary {
-      color: #1e3a8a;
-      border: 2px solid #1e3a8a;
-      background: transparent;
-    }
-
-    .btn-outline-primary:hover {
-      background: #1e3a8a;
-      color: white;
-    }
-
-    .btn-outline-secondary {
-      color: #64748b;
-      border: 2px solid #64748b;
-    }
-
-    .btn-outline-secondary:hover {
-      background: #64748b;
-      color: white;
-    }
-
-    /* Form Controls */
+    /* ==================== FORM ELEMENTS ==================== */
     .form-label {
-      font-weight: 700;
-      color: #1e293b;
+      font-weight: 600;
+      color: var(--navy-dark);
       margin-bottom: 10px;
       display: block;
-      font-size: 0.95rem;
       text-transform: uppercase;
+      font-size: 0.82rem;
       letter-spacing: 0.5px;
     }
 
-    .form-control, .form-select {
+    .form-control,
+    .form-select {
+      border: 2px solid rgba(11, 28, 45, 0.1);
       border-radius: 12px;
-      border: 2px solid #e2e8f0;
-      padding: 12px 16px;
-      font-size: 1rem;
+      padding: 13px 16px;
+      font-size: 0.97rem;
+      font-family: 'Poppins', sans-serif;
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--navy-dark);
       transition: all 0.3s ease;
+      width: 100%;
     }
 
-    .form-control:focus, .form-select:focus {
-      border-color: #1e3a8a;
-      box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
+    .form-control:focus,
+    .form-select:focus {
+      border-color: var(--cyan);
+      background: var(--white);
+      box-shadow: 0 0 0 6px rgba(6, 182, 212, 0.1);
       outline: none;
     }
 
-    /* Form Layout */
-    .booking-form {
-      max-width: 100%;
+    .form-control::placeholder {
+      color: var(--gray-medium);
+    }
+
+    /* Date and Time picker styling */
+    input[type="date"],
+    input[type="time"] {
+      cursor: pointer;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      border-radius: 4px;
+      margin-right: 4px;
+      opacity: 1;
+      filter: invert(0.4);
+      pointer-events: auto;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator:hover,
+    input[type="time"]::-webkit-calendar-picker-indicator:hover {
+      opacity: 1;
+      filter: invert(0.6);
+    }
+
+    /* Ensure icon shows on all states */
+    input[type="date"]::-webkit-outer-spin-button,
+    input[type="date"]::-webkit-inner-spin-button {
+      display: none;
+    }
+
+    /* Make whole input clickable */
+    input[type="date"],
+    input[type="time"] {
+      position: relative;
     }
 
     .form-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
       margin-bottom: 24px;
     }
 
@@ -264,484 +762,1233 @@
       flex-direction: column;
     }
 
-    .form-actions {
-      display: flex;
-      gap: 16px;
-      margin-top: 40px;
-      justify-content: center;
-    }
-
-    /* Facilities Grid */
-    .facilities-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .facilities-grid > div {
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      border: 2px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .facilities-grid > div:hover {
-      border-color: #1e3a8a;
-      box-shadow: 0 10px 30px rgba(30, 58, 138, 0.15);
-      transform: translateY(-4px);
-    }
-
-    /* Availability Controls */
-    .availability-controls {
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      border-radius: 12px;
-      padding: 30px;
-      text-align: center;
-    }
-
-    .control-group {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    /* Slots Container */
-    .slots-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      padding: 30px 0;
-    }
-
-    .slot-chip {
-      border-radius: 12px;
-      padding: 13px 20px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    /* ==================== BUTTONS ==================== */
+    .btn {
+      padding: 13px 30px;
+      font-weight: 600;
       border: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.88rem;
+      font-family: 'Poppins', sans-serif;
     }
 
-    .slot-chip.free {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    .btn-primary {
+      background: linear-gradient(135deg, var(--royal-blue) 0%, var(--cyan) 100%);
+      color: var(--white);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.18);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, var(--emerald) 0%, #34d399 100%);
+      color: var(--white);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.18);
+    }
+
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(11, 28, 45, 0.07);
+      color: var(--navy-dark);
+      border: 2px solid var(--gray-medium);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(11, 28, 45, 0.12);
+      border-color: var(--navy-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #EF4444 0%, #f87171 100%);
+      color: var(--white);
+      box-shadow: 0 8px 24px rgba(239, 68, 68, 0.18);
+    }
+
+    .btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(239, 68, 68, 0.3);
+    }
+
+    /* ==================== BOOKING CARDS ==================== */
+    .booking-item {
+      background: var(--white);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 16px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .booking-item:hover {
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.09);
+      transform: translateY(-2px);
+    }
+
+    .booking-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .booking-item-info h5 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy-dark);
+      margin-bottom: 6px;
+    }
+
+    .booking-item-info .meta {
+      font-size: 0.85rem;
+      color: var(--gray-dark);
+      line-height: 1.7;
+    }
+
+    .booking-item-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .badge-confirmed {
+      background: rgba(16, 185, 129, 0.12);
+      color: #059669;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .badge-pending {
+      background: rgba(251, 191, 36, 0.12);
+      color: #B45309;
+      border: 1px solid rgba(251, 191, 36, 0.25);
+    }
+
+    .badge-cancelled {
+      background: rgba(239, 68, 68, 0.1);
+      color: #DC2626;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .btn-sm-action {
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-sm-edit {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--royal-blue);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-sm-edit:hover {
+      background: var(--royal-blue);
       color: white;
     }
 
-    .slot-chip.free:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+    .btn-sm-cancel {
+      background: rgba(251, 191, 36, 0.1);
+      color: #B45309;
+      border: 1px solid rgba(251, 191, 36, 0.2);
     }
 
-    .slot-chip.busy {
-      background: rgba(148, 163, 184, 0.3);
-      color: #64748b;
-      cursor: not-allowed;
-      opacity: 0.5;
+    .btn-sm-cancel:hover {
+      background: #F59E0B;
+      color: white;
     }
 
-    .slot-hint {
-      text-align: center;
-      color: #64748b;
-      font-weight: 600;
-      font-size: 0.95rem;
+    .btn-sm-delete {
+      background: rgba(239, 68, 68, 0.08);
+      color: #DC2626;
+      border: 1px solid rgba(239, 68, 68, 0.18);
     }
 
-    /* Filters */
-    .filters-container {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 16px;
-      margin-bottom: 30px;
+    .btn-sm-delete:hover {
+      background: #EF4444;
+      color: white;
     }
 
-    .filter-group {
+    /* ==================== SLOT CHIPS ==================== */
+    .slots-container {
       display: flex;
-      gap: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0;
+      justify-content: center;
     }
 
-    .filter-group .form-control {
-      flex: 1;
-    }
-
-    /* Bookings List */
-    .bookings-list {
-      display: grid;
-      gap: 16px;
-    }
-
-    .bookings-list > div {
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-      border: 2px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 24px;
-      transition: all 0.3s ease;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .bookings-list > div:hover {
-      border-color: #1e3a8a;
-      box-shadow: 0 10px 30px rgba(30, 58, 138, 0.1);
-    }
-
-    /* Typography */
-    h5 {
-      color: #1e293b;
-      font-weight: 800;
-    }
-
-    .subtitle {
-      color: #64748b;
-      font-weight: 500;
-    }
-
-    .small-muted {
-      color: #64748b;
-      font-size: 0.9rem;
-    }
-
-    .mono {
-      font-family: 'Monaco', 'Menlo', monospace;
-      background: rgba(30, 58, 138, 0.1);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 0.85em;
-      color: #1e3a8a;
-    }
-
-    /* Badges */
-    .badge {
+    .slot-chip {
       padding: 10px 18px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      border-radius: 10px;
+      font-weight: 600;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-size: 0.85rem;
+      font-family: 'Poppins', sans-serif;
     }
 
-    .badge-soft-success {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.1));
+    .slot-chip.free {
+      background: rgba(16, 185, 129, 0.08);
+      border-color: var(--emerald);
+      color: var(--emerald);
+    }
+
+    .slot-chip.free:hover {
+      background: var(--emerald);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+    }
+
+    /* Slot chip — uniform bright highlight for entire selection */
+    .slot-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 9px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.84rem;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .slot-ic {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .slot-chip.free {
+      background: rgba(16, 185, 129, 0.08);
+      border-color: var(--emerald);
       color: #047857;
     }
 
-    .badge-soft-danger {
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1));
-      color: #dc2626;
+    .slot-chip.free:hover {
+      background: var(--emerald);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.28);
     }
 
-    .text-bg-warning {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.1)) !important;
-      color: #b45309 !important;
+    /* ALL selected/range states use the same saturated green */
+    .slot-chip.free.selected,
+    .slot-chip.free.in-range,
+    .slot-chip.free.range-end {
+      background: #059669;
+      border-color: #047857;
+      color: white;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
+      transform: translateY(-1px);
     }
 
-    .text-bg-light {
-      background: linear-gradient(135deg, #f3f4f6, #e5e7eb) !important;
-      color: #374151 !important;
+    .slot-chip.free.selected {
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.5);
     }
 
-    /* Alerts */
-    .message-container {
-      margin-top: 30px;
+    .slot-chip.free.range-end {
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.5);
+    }
+
+    .slot-chip.busy {
+      background: rgba(148, 163, 184, 0.1);
+      border-color: var(--gray-medium);
+      color: var(--gray-dark);
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Slot hint messages */
+    .hint-selected {
+      color: #047857;
+      font-weight: 600;
+    }
+
+    .hint-partial {
+      color: #B45309;
+      font-weight: 600;
+    }
+
+    /* ==================== OCCUPANCY BAR ==================== */
+    .occ-bar-wrap {
+      margin: 10px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .occ-bar-track {
+      flex: 1;
+      height: 7px;
+      background: rgba(0, 0, 0, 0.07);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .occ-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .occ-label {
+      font-size: 0.73rem;
+      color: var(--gray-dark);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .fac-desc {
+      font-size: 0.82rem;
+      color: var(--gray-dark);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    /* Facility availability status labels */
+    .facility-status-row {
+      margin-bottom: 10px;
+    }
+
+    .fac-avail {
+      color: #059669;
+      font-weight: 700;
+      font-size: 0.83rem;
+    }
+
+    .fac-partial {
+      color: #D97706;
+      font-weight: 700;
+      font-size: 0.83rem;
+    }
+
+    .fac-unavail {
+      color: #DC2626;
+      font-weight: 700;
+      font-size: 0.83rem;
+    }
+
+    /* Fully-booked facility card dim overlay */
+    .facility-card.card-full {
+      opacity: 0.88;
+    }
+
+    .btn-facility-full {
+      cursor: default;
+    }
+
+    /* ==================== BOOKING STATS PILLS ==================== */
+    .stats-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .stats-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: rgba(11, 28, 45, 0.06);
+      color: var(--navy-dark);
+      border: 1px solid rgba(11, 28, 45, 0.1);
+    }
+
+    .stats-pill-green {
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+
+    .stats-pill-yellow {
+      background: rgba(251, 191, 36, 0.1);
+      color: #B45309;
+      border-color: rgba(251, 191, 36, 0.25);
+    }
+
+    .stats-pill-red {
+      background: rgba(239, 68, 68, 0.1);
+      color: #DC2626;
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+
+    /* ==================== UPCOMING TODAY ==================== */
+    .upcoming-panel {
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);
+      border: 1px solid rgba(6, 182, 212, 0.18);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+    }
+
+    .upcoming-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--navy-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .upcoming-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      margin-bottom: 8px;
+    }
+
+    .upcoming-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      flex-shrink: 0;
+      animation: pulse-dot 1.6s ease infinite;
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.4);
+        opacity: 0.7;
+      }
+    }
+
+    .upcoming-purpose {
+      color: var(--gray-dark);
+      font-size: 0.85rem;
+    }
+
+    /* Time-until badge */
+    .time-until {
+      display: inline-block;
+      background: rgba(6, 182, 212, 0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 12px;
+      padding: 1px 9px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .time-until.ongoing {
+      background: rgba(16, 185, 129, 0.12);
+      color: #059669;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    /* ==================== STATISTICS ==================== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+      margin: 40px 0;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.8) 100%);
+      border: 2px solid rgba(6, 182, 212, 0.15);
+      border-radius: 16px;
+      padding: 36px 28px;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.07), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--cyan);
+      box-shadow: 0 18px 44px rgba(6, 182, 212, 0.12);
+    }
+
+    .stat-card:hover::before {
+      left: 100%;
+    }
+
+    .stat-number {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--royal-blue) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+      animation: countUp 0.6s ease;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy-dark);
+      margin-bottom: 6px;
+    }
+
+    .stat-description {
+      font-size: 0.85rem;
+      color: var(--gray-dark);
+    }
+
+    /* ==================== TESTIMONIALS ==================== */
+    .testimonials-container {
+      position: relative;
+      max-width: 800px;
+      margin: 60px auto;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 12px 44px rgba(0, 0, 0, 0.07);
+      border-left: 4px solid var(--cyan);
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .testimonial-text {
+      font-size: 1.05rem;
+      color: var(--gray-dark);
+      margin-bottom: 22px;
+      line-height: 1.8;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .author-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--royal-blue) 0%, var(--cyan) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .author-info h5 {
+      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--navy-dark);
+    }
+
+    .author-info p {
+      margin: 0;
+      font-size: 0.82rem;
+      color: var(--gray-dark);
+    }
+
+    .testimonials-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: rgba(11, 28, 45, 0.18);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background: var(--cyan);
+      transform: scale(1.2);
+    }
+
+    /* ==================== ALERTS ==================== */
+    #msg {
+      margin-top: 20px;
     }
 
     .alert {
       border-radius: 12px;
       border: none;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      font-weight: 600;
-      padding: 16px 24px;
-      margin: 0;
+      padding: 14px 20px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .alert-success {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.1));
-      color: #047857;
-      border-left: 5px solid #10b981;
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+      border-left: 4px solid var(--emerald);
     }
 
     .alert-danger {
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.1));
-      color: #dc2626;
-      border-left: 5px solid #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+      color: #DC2626;
+      border-left: 4px solid #EF4444;
     }
 
     .alert-warning {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.1));
-      color: #b45309;
-      border-left: 5px solid #f59e0b;
+      background: rgba(251, 191, 36, 0.1);
+      color: #B45309;
+      border-left: 4px solid var(--gold-dark);
     }
 
     .alert-info {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(37, 99, 235, 0.1));
-      color: #1e40af;
-      border-left: 5px solid #3b82f6;
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--royal-blue);
+      border-left: 4px solid var(--royal-blue);
     }
 
-    /* Modal */
+    /* ==================== SUCCESS OVERLAY MODAL ==================== */
+    .success-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 9998;
+      backdrop-filter: blur(4px);
+    }
+
+    .success-overlay.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-box {
+      background: white;
+      border-radius: 24px;
+      padding: 48px 52px;
+      text-align: center;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+      animation: successPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      position: relative;
+    }
+
+    .success-box.hiding {
+      animation: successFadeOut 0.35s ease forwards;
+    }
+
+    .success-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin: 0 auto 22px;
+      background: linear-gradient(135deg, var(--emerald), #34d399);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 40px rgba(16, 185, 129, 0.35);
+      animation: circlePulse 0.5s ease forwards;
+    }
+
+    .success-circle svg {
+      width: 44px;
+      height: 44px;
+    }
+
+    .success-circle svg path {
+      stroke: white;
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: checkDraw 0.6s ease 0.4s forwards;
+    }
+
+    .success-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--navy-dark);
+      margin-bottom: 10px;
+    }
+
+    .success-message {
+      font-size: 0.95rem;
+      color: var(--gray-dark);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .success-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ==================== MODALS ==================== */
     .modal-content {
-      border: none;
-      border-radius: 16px;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+      border-radius: 18px;
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      background: var(--white);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.14);
+      max-width: 480px;
+      margin: auto;
     }
 
     .modal-header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-      color: white;
-      border: none;
-      padding: 28px 32px;
+      border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+      padding: 22px 24px;
     }
 
-    .modal-title {
-      font-weight: 800;
-      font-size: 1.4rem;
+    .modal-header .modal-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy-dark);
     }
 
-    .btn-close {
-      filter: brightness(0) invert(1);
+    .modal-body {
+      padding: 22px 24px;
+      color: var(--gray-dark);
+      font-size: 0.95rem;
     }
 
-    /* Scrollbar */
+    .modal-footer {
+      border-top: 1px solid rgba(6, 182, 212, 0.1);
+      padding: 18px 24px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .modal-dialog {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      max-width: 500px;
+    }
+
+    /* ==================== SCROLLBAR ==================== */
     ::-webkit-scrollbar {
-      width: 10px;
+      width: 8px;
     }
 
     ::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.05);
+      background: rgba(11, 28, 45, 0.04);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, #1e3a8a, #1e40af);
+      background: linear-gradient(180deg, var(--cyan) 0%, var(--royal-blue) 100%);
       border-radius: 5px;
     }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(180deg, #1e40af, #1e3a8a);
+    /* ==================== LOADING ==================== */
+    .loading {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(6, 182, 212, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--cyan);
+      animation: spin 0.8s linear infinite;
     }
 
-    /* Responsive */
+    /* ==================== EMPTY STATE ==================== */
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--gray-dark);
+    }
+
+    .empty-state .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      opacity: 0.4;
+    }
+
+    .empty-state p {
+      font-size: 0.95rem;
+    }
+
+    /* ==================== MONO ==================== */
+    .mono {
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+    }
+
+    /* ==================== RESPONSIVE ==================== */
     @media (max-width: 768px) {
-      .container-centered {
-        padding: 30px 15px;
+      .hero-section {
+        height: auto;
+        padding: 110px 20px 80px;
       }
 
-      .card-header-custom {
-        padding: 30px 20px 20px;
+      .hero-content h1 {
+        font-size: 2.4rem;
       }
 
-      .card-header-custom h5 {
-        font-size: 1.5rem;
+      .hero-content p {
+        font-size: 1rem;
       }
 
-      .card-body {
-        padding: 24px;
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
       }
 
-      .nav-tabs {
+      .btn-hero {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .tabs-header {
         gap: 8px;
       }
 
-      .nav-tabs .nav-link {
-        padding: 12px 20px;
-        font-size: 0.9rem;
+      .tab-btn {
+        padding: 9px 16px;
+        font-size: 0.78rem;
       }
 
-      .form-row {
-        grid-template-columns: 1fr;
+      .glass-card {
+        padding: 28px 18px;
       }
 
       .facilities-grid {
         grid-template-columns: 1fr;
       }
 
-      .filters-container {
+      .stats-grid {
         grid-template-columns: 1fr;
       }
 
-      .form-actions {
-        flex-direction: column;
+      .form-row {
+        grid-template-columns: 1fr;
       }
 
-      .btn {
-        width: 100%;
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 1.9rem;
+      }
+
+      .glass-card {
+        padding: 20px 14px;
+      }
+
+      .card-header-section h3 {
+        font-size: 1.5rem;
+      }
+
+      .success-box {
+        padding: 36px 24px;
       }
     }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg bg-white border-bottom">
-    <div class="container">
-      <div class="w-100 d-flex justify-content-between align-items-center">
-        <div>
-          <span class="navbar-brand fw-bold">📅 Campus Facility Booking</span>
-          <div class="small-muted mt-1">Manage your facility bookings with ease</div>
-        </div>
-        <div class="text-end">
-          <span class="small-muted">API: <span class="mono" id="apiUrl"></span></span>
-        </div>
+
+  <!-- Hidden element for API URL (required by app.js) -->
+  <span id="apiUrl" style="display:none;"></span>
+
+  <!-- Navigation Bar -->
+  <nav id="navbar">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between align-items-center px-4">
+        <a class="navbar-brand" onclick="scrollToHero()">BookCampus</a>
+        <ul class="nav-links d-none d-md-flex">
+          <li><a href="#" data-tab="facilities">Facilities</a></li>
+          <li><a href="#" data-tab="availability">Availability</a></li>
+          <li><a href="#" data-tab="create">Book Now</a></li>
+          <li><a href="#" data-tab="history">My Bookings</a></li>
+        </ul>
+        <button class="hamburger d-md-none" id="hamburgerBtn" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </nav>
 
-  <main class="container-centered">
-    <!-- Tab Navigation - Centered & Modern -->
-    <div class="tabs-header">
-      <ul class="nav nav-tabs" id="mainTabs" role="tablist">
-        <li class="nav-item" role="presentation"><button class="nav-link active" id="tab-facilities-btn" onclick="showTab('facilities')">🏢 Facilities</button></li>
-        <li class="nav-item" role="presentation"><button class="nav-link" id="tab-availability-btn" onclick="showTab('availability')">📅 Check Availability</button></li>
-        <li class="nav-item" role="presentation"><button class="nav-link" id="tab-create-btn" onclick="showTab('create')">✚ Book Now</button></li>
-        <li class="nav-item" role="presentation"><button class="nav-link" id="tab-history-btn" onclick="showTab('history')">📋 My Bookings</button></li>
-      </ul>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" data-tab="facilities" data-mobile="true">Facilities</a>
+    <a href="#" data-tab="availability" data-mobile="true">Availability</a>
+    <a href="#" data-tab="create" data-mobile="true">Book Now</a>
+    <a href="#" data-tab="history" data-mobile="true">My Bookings</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="hero-background"></div>
+    <div class="hero-gradient-overlay"></div>
+    <div class="hero-content">
+      <h1>Book Premium Campus<br>Spaces Instantly.</h1>
+      <p>Access world-class facilities with seamless booking and instant confirmation</p>
+      <div class="hero-buttons">
+        <button class="btn-hero btn-hero-primary" onclick="navigateToTab('create')">Book Now</button>
+        <button class="btn-hero btn-hero-secondary" onclick="navigateToTab('facilities')">Explore Facilities</button>
+      </div>
     </div>
+    <div class="scroll-indicator">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"></path>
+      </svg>
+    </div>
+  </section>
 
-    <div class="content-wrapper">
-      <!-- Section 1: Facilities -->
-      <section id="section-facilities" class="tab-section active">
-        <div class="card app-card">
-          <div class="card-header-custom">
-            <h5>Available Facilities</h5>
-            <p class="subtitle">Select a facility to view details and check availability</p>
+  <!-- Main Content -->
+  <main class="container-main" id="main-content">
+
+    <!-- Tab Navigation -->
+    <div class="tabs-container" id="tabs-section">
+      <div class="tabs-header scroll-target">
+        <button class="tab-btn active" id="tab-facilities-btn" onclick="showTab('facilities')">Facilities</button>
+        <button class="tab-btn" id="tab-availability-btn" onclick="showTab('availability')">Availability</button>
+        <button class="tab-btn" id="tab-create-btn" onclick="showTab('create')">Book Now</button>
+        <button class="tab-btn" id="tab-history-btn" onclick="showTab('history')">My Bookings</button>
+      </div>
+
+      <!-- ===== FACILITIES TAB ===== -->
+      <section id="section-facilities" class="tab-content active scroll-target">
+        <div class="glass-card">
+          <div class="card-header-section">
+            <h3>&#x1F3DB; Available Facilities</h3>
+            <p>Browse facilities and see real-time availability for your chosen date. Click any card to book.</p>
           </div>
-          <div class="card-body">
-            <div class="mb-4">
-              <label class="form-label">Select Facility</label>
-              <select class="form-select" id="facilitySelect"></select>
+
+          <div class="form-row" style="max-width:680px;margin-bottom:28px;">
+            <div class="form-group">
+              <label class="form-label">Filter by Facility</label>
+              <select class="form-select" id="facilitySelect" onchange="onFacilitySelectChange()">
+                <option value="">All Facilities</option>
+              </select>
             </div>
-            <div id="facilityCards" class="facilities-grid"></div>
-            <div class="text-center mt-4">
-              <button class="btn btn-primary btn-lg" id="btnRefreshFacilities">🔄 Refresh Facilities</button>
+            <div class="form-group">
+              <label class="form-label">Check Availability For Date</label>
+              <input type="date" class="form-control" id="facilityDate" onchange="onFacilityDateChange()">
             </div>
+          </div>
+
+          <div id="facilityCards" class="facilities-grid">
+            <div class="empty-state">
+              <div class="empty-icon">&#x23F3;</div>
+              <p>Loading facilities...</p>
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <button class="btn btn-primary" id="btnRefreshFacilities">&#x21BB; Refresh Facilities</button>
           </div>
         </div>
       </section>
 
-      <!-- Section 2: Availability -->
-      <section id="section-availability" class="tab-section">
-        <div class="card app-card">
-          <div class="card-header-custom">
-            <h5>Check Availability</h5>
-            <p class="subtitle">View 30-minute time slots (08:00 - 20:00)</p>
+      <!-- ===== AVAILABILITY TAB ===== -->
+      <section id="section-availability" class="tab-content scroll-target">
+        <div class="glass-card">
+          <div class="card-header-section">
+            <h3>Check Availability</h3>
+            <p>View 30-minute time slots (08:00 – 20:00). Click a green slot to pick a start, then click another to set
+              the end of your range. Max 6 h for academic spaces, 24 h for residential.</p>
           </div>
-          <div class="card-body">
-            <div class="availability-controls">
-              <div class="control-group">
-                <label class="form-label">Date</label>
-                <input type="date" class="form-control" id="availDate">
-              </div>
-              <div class="text-center mt-3">
-                <button class="btn btn-primary btn-lg" id="btnCheckAvailability">🔍 Check Slots</button>
-              </div>
-            </div>
-            
-            <div class="mt-5">
-              <div id="slots" class="slots-container"></div>
-              <div id="slotHint" class="slot-hint"></div>
-            </div>
 
-            <div class="mt-5 text-center">
-              <button class="btn btn-success btn-lg" id="btnAutoFillBooking">⚡ Quick Book Selected Slot</button>
+          <div class="form-row" style="max-width: 640px;">
+            <div class="form-group">
+              <label class="form-label">Facility</label>
+              <select class="form-select" id="availFacilitySelect" onchange="loadAvailability()">
+                <option value="">Select facility…</option>
+              </select>
             </div>
+            <div class="form-group">
+              <label class="form-label">Date</label>
+              <input type="date" class="form-control" id="availDate" onchange="loadAvailability()">
+            </div>
+            <div class="form-group" style="justify-content: flex-end;">
+              <label class="form-label">&nbsp;</label>
+              <button class="btn btn-primary" id="btnCheckAvailability">🔍 Check Slots</button>
+            </div>
+          </div>
+
+          <div id="slots" class="slots-container"></div>
+          <div id="slotHint" class="text-center" style="color: var(--gray-dark); margin-top: 20px; font-size: 0.9rem;">
+          </div>
+
+          <div class="text-center mt-4">
+            <button class="btn btn-success" id="btnAutoFillBooking">⚡ Quick Book Selected Slot</button>
           </div>
         </div>
       </section>
 
-      <!-- Section 3: Create Booking -->
-      <section id="section-create" class="tab-section">
-        <div class="card app-card">
-          <div class="card-header-custom">
-            <h5>Create New Booking</h5>
-            <p class="subtitle">Book your preferred facility for the desired date and time</p>
+      <!-- ===== BOOKING TAB ===== -->
+      <section id="section-create" class="tab-content scroll-target">
+        <div class="glass-card">
+          <div class="card-header-section">
+            <h3>Create New Booking</h3>
+            <p>Reserve your preferred facility with just a few clicks</p>
           </div>
-          <div class="card-body">
-            <form class="booking-form">
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label">Facility ID</label>
-                  <input type="number" class="form-control" id="facilityId" placeholder="e.g., 1">
-                </div>
-              </div>
 
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label">Date</label>
-                  <input type="date" class="form-control" id="date">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Start Time</label>
-                  <input type="time" class="form-control" id="startTime">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">End Time</label>
-                  <input type="time" class="form-control" id="endTime">
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label">Purpose (Optional)</label>
-                  <input type="text" class="form-control" id="purpose" placeholder="e.g., Team meeting, Study session">
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button type="button" class="btn btn-success btn-lg" id="btnCreateBooking">✓ Create Booking</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg" id="btnResetForm">↻ Reset Form</button>
-              </div>
-
-              <div id="msg" class="message-container"></div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 4: Booking History -->
-      <section id="section-history" class="tab-section">
-        <div class="card app-card">
-          <div class="card-header-custom">
-            <h5>My Bookings</h5>
-            <p class="subtitle">View and manage all your facility bookings</p>
-          </div>
-          <div class="card-body">
-            <div class="filters-container">
-              <div class="filter-group">
-                <input class="form-control" id="filterText" placeholder="🔍 Search by facility, date, or status...">
-              </div>
-              <div class="filter-group">
-                <select class="form-select" id="filterStatus">
-                  <option value="">All Statuses</option>
-                  <option value="pending">⏳ Pending</option>
-                  <option value="confirmed">✓ Confirmed</option>
-                  <option value="cancelled">✕ Cancelled</option>
+          <form class="booking-form" onsubmit="return false;">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Facility</label>
+                <select class="form-select" id="facilityId">
+                  <option value="">Select a facility…</option>
                 </select>
               </div>
-              <button class="btn btn-primary" id="btnRefreshBookings">🔄 Refresh</button>
             </div>
 
-            <div id="bookings" class="bookings-list mt-4"></div>
+            <!-- Hidden facilitySelect alias the old facilitySelect used by availability autofill -->
+            <input type="hidden" id="facilitySelect_alias">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Date</label>
+                <input type="date" class="form-control" id="date">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Start Time</label>
+                <input type="time" class="form-control" id="startTime">
+              </div>
+              <div class="form-group">
+                <label class="form-label">End Time</label>
+                <input type="time" class="form-control" id="endTime">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Purpose (Optional)</label>
+                <input type="text" class="form-control" id="purpose"
+                  placeholder="e.g., Team meeting, Study session, Seminar">
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 16px; margin-top: 36px; justify-content: center; flex-wrap: wrap;">
+              <button type="button" class="btn btn-success" id="btnCreateBooking">✓ Create Booking</button>
+              <button type="button" class="btn btn-secondary" id="btnResetForm">↻ Reset Form</button>
+            </div>
+
+            <div id="msg"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ===== HISTORY TAB ===== -->
+      <section id="section-history" class="tab-content scroll-target">
+        <div class="glass-card">
+          <div class="card-header-section">
+            <h3>My Bookings</h3>
+            <p>View and manage all your reservations</p>
           </div>
+
+          <!-- Stats pills -->
+          <div id="bookingStats" class="stats-pills-row"></div>
+
+          <!-- Upcoming today -->
+          <div class="upcoming-panel" id="upcomingTodayPanel">
+            <div class="upcoming-title">&#x25B7; Today&rsquo;s Upcoming Bookings</div>
+            <div id="upcomingToday"></div>
+          </div>
+
+          <div class="form-row" style="margin-top:24px;">
+            <div class="form-group">
+              <label class="form-label">Search</label>
+              <input class="form-control" id="filterText" placeholder="Search by facility, date, status&hellip;">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Filter by Status</label>
+              <select class="form-select" id="filterStatus">
+                <option value="">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">&#x2713; Confirmed</option>
+                <option value="cancelled">&#x2715; Cancelled</option>
+              </select>
+            </div>
+            <div class="form-group" style="justify-content: flex-end;">
+              <label class="form-label">&nbsp;</label>
+              <button class="btn btn-primary w-100" id="btnRefreshBookings">&#x21BB; Refresh</button>
+            </div>
+          </div>
+
+          <div id="bookings" style="margin-top: 28px;"></div>
         </div>
       </section>
     </div>
+
+    <!-- Statistics Section -->
+    <section style="margin-top: 90px;">
+      <h2 class="section-title">Why Choose BookCampus?</h2>
+      <p class="section-subtitle">Trusted by thousands of students and staff</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="stat-bookings">500</div>
+          <div class="stat-label">Active Bookings</div>
+          <div class="stat-description">Seamless reservations daily</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="stat-satisfaction">98%</div>
+          <div class="stat-label">Satisfaction Rate</div>
+          <div class="stat-description">User satisfaction percentage</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="stat-facilities-count">50+</div>
+          <div class="stat-label">Campus Facilities</div>
+          <div class="stat-description">Available across your campus</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section style="margin-top: 90px; padding-bottom: 60px;">
+      <h2 class="section-title">What Users Say</h2>
+      <p class="section-subtitle">Real experiences from our campus community</p>
+      <div class="testimonials-container">
+        <div class="testimonial-card">
+          <div class="testimonial-text">"BookCampus transformed how we manage facility bookings. The interface is
+            intuitive and the system is incredibly reliable. Highly recommended!"</div>
+          <div class="testimonial-author">
+            <div class="author-avatar">JD</div>
+            <div class="author-info">
+              <h5>James Dakila</h5>
+              <p>Department Head</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" style="display:none;">
+          <div class="testimonial-text">"The booking process is smooth and efficient. I love the real-time availability
+            checking. Finally, a modern solution for our campus!"</div>
+          <div class="testimonial-author">
+            <div class="author-avatar">SM</div>
+            <div class="author-info">
+              <h5>Sarah Mensah</h5>
+              <p>Event Coordinator</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" style="display:none;">
+          <div class="testimonial-text">"Outstanding experience. Booking a lab or lecture hall used to take hours — now
+            it takes seconds. Our scheduling complexity is gone!"</div>
+          <div class="testimonial-author">
+            <div class="author-avatar">RK</div>
+            <div class="author-info">
+              <h5>Robert Kwame</h5>
+              <p>Operations Lead</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonials-dots">
+          <span class="dot active" onclick="showTestimonial(0)"></span>
+          <span class="dot" onclick="showTestimonial(1)"></span>
+          <span class="dot" onclick="showTestimonial(2)"></span>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- Confirm Modal (generic) -->
+  <!-- ===== SUCCESS OVERLAY ===== -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-box" id="successBox">
+      <div class="success-circle">
+        <svg viewBox="0 0 52 52">
+          <path d="M14 26 L22 34 L38 18" />
+        </svg>
+      </div>
+      <div class="success-title">Booking Confirmed! 🎉</div>
+      <div class="success-message" id="successMessage">Your facility has been reserved successfully.</div>
+      <div class="success-actions">
+        <button class="btn btn-success" onclick="closeSuccessOverlay(); showTab('history')">View My Bookings</button>
+        <button class="btn btn-secondary" onclick="closeSuccessOverlay()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODALS ===== -->
+  <!-- Confirm Modal -->
   <div class="modal fade" id="confirmModal" tabindex="-1">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body" id="confirmModalBody"></div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="confirmCancelBtn">Cancel</button>
-          <button type="button" class="btn btn-danger" id="confirmOkBtn">Confirm</button>
+          <button type="button" class="btn btn-secondary btn-sm-action" id="confirmCancelBtn">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm-action" id="confirmOkBtn">Confirm</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Alert Modal (important messages) -->
+  <!-- Alert Modal -->
   <div class="modal fade" id="alertModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -762,31 +2009,33 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Update Booking</h5>
+          <h5 class="modal-title">✏️ Update Booking</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <div class="row g-2">
-            <div class="col-md-6">
-              <label class="form-label">Facility ID</label>
-              <input type="number" class="form-control" id="updateFacilityId">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Facility</label>
+              <select class="form-select" id="updateFacilityId"></select>
             </div>
-            <div class="col-md-6">
+            <div class="form-group">
               <label class="form-label">Date</label>
               <input type="date" class="form-control" id="updateDate">
             </div>
-            <div class="col-md-6">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
               <label class="form-label">Start Time</label>
               <input type="time" class="form-control" id="updateStartTime">
             </div>
-            <div class="col-md-6">
+            <div class="form-group">
               <label class="form-label">End Time</label>
               <input type="time" class="form-control" id="updateEndTime">
             </div>
           </div>
-          <div class="mb-3">
-            <label class="form-label">Purpose (optional)</label>
-            <input type="text" class="form-control" id="updatePurpose">
+          <div class="form-group" style="margin-top: 8px;">
+            <label class="form-label">Purpose</label>
+            <input type="text" class="form-control" id="updatePurpose" placeholder="Optional">
           </div>
         </div>
         <div class="modal-footer">
@@ -797,7 +2046,113 @@
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ============ Navbar Scroll Effect ============
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    });
+
+    // ============ Scroll to top (brand) ============
+    function scrollToHero() {
+      document.getElementById('hero').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ============ Navigate to tab + scroll ============
+    function navigateToTab(tabName) {
+      showTab(tabName);
+      setTimeout(() => {
+        const section = document.getElementById('section-' + tabName);
+        if (section) {
+          const topOffset = section.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: topOffset, behavior: 'smooth' });
+        }
+      }, 60);
+    }
+
+    // ============ Navbar links ============
+    document.querySelectorAll('.nav-links a[data-tab], .mobile-menu a[data-tab]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const tab = link.dataset.tab;
+        navigateToTab(tab);
+        // update active state
+        document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active-nav'));
+        document.querySelectorAll(`.nav-links a[data-tab="${tab}"]`).forEach(l => l.classList.add('active-nav'));
+        // close mobile if open
+        closeMobileMenu();
+      });
+    });
+
+    // ============ Hamburger ============
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburgerBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+    document.addEventListener('click', e => {
+      if (!hamburgerBtn.contains(e.target) && !mobileMenu.contains(e.target)) closeMobileMenu();
+    });
+
+    // ============ Success Overlay ============
+    function showSuccessOverlay(message) {
+      const overlay = document.getElementById('successOverlay');
+      const box = document.getElementById('successBox');
+      document.getElementById('successMessage').textContent = message || 'Your facility has been reserved successfully.';
+      box.classList.remove('hiding');
+      overlay.classList.add('show');
+    }
+    function closeSuccessOverlay() {
+      const overlay = document.getElementById('successOverlay');
+      const box = document.getElementById('successBox');
+      box.classList.add('hiding');
+      setTimeout(() => overlay.classList.remove('show'), 350);
+    }
+    document.getElementById('successOverlay').addEventListener('click', e => {
+      if (e.target === document.getElementById('successOverlay')) closeSuccessOverlay();
+    });
+
+    // ============ Testimonials ============
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const testimonialDots = document.querySelectorAll('.dot');
+    function showTestimonial(index) {
+      testimonialCards.forEach(c => c.style.display = 'none');
+      testimonialDots.forEach(d => d.classList.remove('active'));
+      testimonialCards[index].style.display = 'block';
+      testimonialDots[index].classList.add('active');
+    }
+    let currentTestimonial = 0;
+    setInterval(() => {
+      currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+      showTestimonial(currentTestimonial);
+    }, 5000);
+
+    // ============ Animated Counters ============
+    function animateCounter(element, target) {
+      let current = 0;
+      const increment = target / 50;
+      const interval = setInterval(() => {
+        current += increment;
+        if (current >= target) { element.textContent = target + '+'; clearInterval(interval); }
+        else element.textContent = Math.floor(current);
+      }, 30);
+    }
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.animated) {
+          entry.target.dataset.animated = 'true';
+          if (entry.target.id === 'stat-bookings') animateCounter(entry.target, 500);
+          if (entry.target.id === 'stat-satisfaction') animateCounter(entry.target, 98);
+          if (entry.target.id === 'stat-facilities-count') animateCounter(entry.target, 50);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-number').forEach(el => observer.observe(el));
+  </script>
+
   <script src="app.js"></script>
 </body>
 
