@@ -19,4 +19,12 @@ public class RootController {
                 "service", "Campus Booking System API",
                 "docs", "/api/facilities  |  /api/bookings");
     }
+
+    @GetMapping("/api")
+    public Map<String, String> api() {
+        return Map.of(
+                "status", "ok",
+                "service", "Campus Booking System API",
+                "docs", "/api/facilities  |  /api/bookings");
+    }
 }
