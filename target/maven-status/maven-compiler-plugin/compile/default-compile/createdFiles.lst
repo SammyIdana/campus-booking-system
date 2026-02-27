@@ -1,4 +1,6 @@
 com\example\booking\exception\BookingConflictException.class
+com\example\booking\controller\RootController.class
+com\example\booking\config\CorsConfig$1.class
 com\example\booking\exception\ApiError.class
 com\example\booking\service\BookingService.class
 com\example\booking\exception\GlobalExceptionHandler.class
@@ -10,8 +12,10 @@ com\example\booking\model\BookingStatus.class
 com\example\booking\model\Facility.class
 com\example\booking\dto\BookingResponse.class
 com\example\booking\controller\FacilityController.class
+com\example\booking\config\CorsConfig.class
 com\example\booking\dto\BookingRequest.class
 com\example\booking\BookingApplication.class
+com\example\booking\config\DataSourceConfig.class
 com\example\booking\model\User.class
 com\example\booking\model\Booking.class
 com\example\booking\repository\FacilityRepository.class
