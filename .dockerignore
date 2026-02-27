@@ -1,0 +1,9 @@
+.git
+.gitignore
+README.md
+DEPLOYMENT.md
+.vscode
+.idea
+*.iml
+target/
+node_modules/
